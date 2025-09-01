@@ -1,3 +1,7 @@
+# Day 31  KUBERNETES ARCHITECTURE USING EXAMPLES
+
+
+
 The reason we discussed we use K8s instead of docker was due to below reasons
 
 - cluster
@@ -55,6 +59,111 @@ So we learnt two components here - kubelet (for ensuring pod is always running ,
 ![](https://raw.githubusercontent.com/SamilVanzar/Devops/main/images/Day30/3.png)
 
 All the above three components complete data plane / worker architecture of K8s. These are the components of worker node
+
+1) Container runtime -Responsible for running the container
+2) kube-proxy - uses ip tables for doing networking
+3) kubectl - To make sure container is always up
+
+
+## Worker Plane / Master Component
+
+This worker node or data plane is responsible for running your application. So the three components we discussed in worker is enough for running your application.
+
+So then the question comes , why do you need control plane or master component ?
+
+--> K8s is enterprise grade solution. It runs in cluster. Now user has created a pod but who will decide where this pod needs to run i.e. pod needs to run on node -1 or node -2 .... or on which node ?
+So this is one specific instruction but there can be several such instructions which needs to be decided. So there should be a heart or core component in k8s which has to deal with such kind of instructions when multiple users are trying to access your cluster there needs to be component in K8s which will access all the core components of K8s and takes all the incoming request like SSO configuration or some security related stuff etc. So this core component in K8s which does everything in k8s and that core component is called API server and this component is present in your master component or worker component of K8s
+
+
+So if someone asks what is the purpose of API Server ?
+So an API server is the component which basically exposes your K8s. So this K8s needs to be exposed to the external world. So all the components of data plane is internal to K8s but the heart of the K8s is K8s API server which basically takes all the requests from external world.
+
+Lets say user is trying to create pod, he accesses the API server and from API server ,K8s API server decides that okay node 1 is free but to schedule a component in node your have component in K8s called <b><u>scheduler</b ></b></u>
+
+So what is the responsibility of scheduler ?
+
+--> So scheduler is basically responsible for scheduling your pods or scheduling your resources on k8s.
+
+So who decides the information ? --> API server
+Who acts on the information ? --> Scheduler
+
+So we have learnt two things : 1) API server  2) Scheduler
+
+So API server gets instructions to deploy pod and decides on which node to deploy node, once decided lets say node 1 then scheduler takes that instruction from API Server and deploys pod on node1
+
+Now lets say we are deploying production level application on K8s cluster there has to a component inside K8s that access backing service.Something that needs to access backing store of entire cluster information. So in K8s there is a component called <b><u>etcd</u></b>. So etcd is key-value store and the entire K8s information is stored as object or key value pairs inside this etcd. So along with API server and Scheduler we learnt about etcd. Without etcd , you dont have backup of cluster or any cluster related information so if tomorrow if you need to restore cluster , you would backup stored in etcd
+
+And finally you have two more components which are
+1) Controller Manager
+2) Cloud Controller Manager
+
+Lets put this Cloud Controller Manager aside for a moment and understand controller manager
+
+Now we know K8s support Auto-Scaling. Now to support auto-scaling, K8s needs component which can automatically detect and do some kind of things.So for that K8s has something called controllers.
+
+For example : Replica Set. So replica set is something responsible for managing the states of the pod. So tomorrow lets say one pod is not enough to serve all the requests so I will auto scale the pod to two pods.So there needs to be component in K8s which ensures that both the pods are running, so that is taken care by replica set. In yaml file,you define you need two pods, then replica set controller makes sure that two pods are always running.
+
+Now there has to be component in K8s which ensures that replica set controllers are always running so that component is called as <b><u>Controller Manager</u></b> .So in K8s there are multiple controllers like replica set controller and there has to be a component which ensures that these controllers are running and this component is called Controller Manager
+
+
+Finally going to the last component called Cloud Controller Manager ( CCM)
+
+- You know that K8s can be run on Cloud platforms like EKS, or AKS or GKE. So lets say are running your K8s on cloud platform like  EKS . So there can be a request to create load balancer , or there is request to create storage . So if you send this request instead to K8s to create load balancer or create storage, K8s needs to be first understand the underlying Cloud provider on top of which K8s is running to understand how to create storage an load balancer on EKS. So K8s has to translate the request from user to API request that your cloud provider understand which in this case is what EKS understands.This mechanism needs to be implemented on your cloud control manager. So what this means is tomorrow there is new cloud service which is launched called "Samil" and you want to deploy K8s on this cloud provider called "Samil" . So what K8s says is that I cannot write logic for all these cloud providers , so I provide you with component called Cloud Control Manager. This CCM is open source utility. This code is available on github. Tomorrow if Samil creates new cloud provider , what Samil can do is he can go this CCM open github repository and write the logic of his Cloud Provider Samil into this CCM . Hence CCM component only exists for Cloud provider and does not exist for on-prem deployments.
+
+So the recap of this chapter is K8s is divided into two main parts:
+
+1) Control Plane and 2) Data Plane
+
+
+There are 3 K8s Data Plane components which are
+
+- Kubelet
+- Kube-Proxy
+- Container run-time
+
+Every K8s worker node will have above 3 components
+
+Next you have is Control Plane Components which are
+
+1) API server
+2) Scheduler
+3) etcd
+4) Controller Manager
+5) Cloud Controller Manager
+
+
+So Control Plane is the one which is managing the action and Data Plane is the one which is executing action
+
+![](https://raw.githubusercontent.com/SamilVanzar/Devops/main/images/Day30/4.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
