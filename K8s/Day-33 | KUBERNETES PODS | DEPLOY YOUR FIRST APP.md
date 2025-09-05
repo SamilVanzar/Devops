@@ -78,7 +78,13 @@ In remaining lecture , we will learn how to install kubectl , create K8 cluster 
 
 Important concept that comes after deployment of pod is how to add auto-healing and auto-scaling capabilities to the pod
 --> In k8s you have wrapper on top of pod called deployment. So you have to use deployment to use features like auto scaling , auto healing in K8s.
+Deployment is just a wrapper on top of pod which is used as way to deploy the application in K8s in real time production scenarios. So you won't be deploying pods in real time prod env but you will be deploying your deployments, daemonsets ,stateful sets and such things which we will learn later in this chapter. But to understand them you need your foundation strong so you need to understand pod first.
 
+Also just to understand that if you ever run into issue with pod , you can debug pod using command:
+
+kubectl describe pod ( to get all information of pod about its config)
+
+kubectl logs pod ( to get all the logs related to pod for tshooting)
 
 
 
