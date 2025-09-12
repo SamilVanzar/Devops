@@ -86,6 +86,30 @@ kubectl describe pod ( to get all information of pod about its config)
 
 kubectl logs pod ( to get all the logs related to pod for tshooting)
 
+--> Also there is kubectl cheatsheet incase you want to know different commands you can execute using kubectl
+
+--> The next thing we want to understand after deploying pod is how to achieve auto healing and auto scaling with pod, In order to get these features in our pod application , you can use the wrapper on top of pod called deployment . So deployment is not much different then pod but just a wrapper. In pod, you created a yaml file and defined kind as pod. While creating deployment, you mention type as deployment. Also we add few more things like template and we say it as pod deployment specification. But in other way deployment is just a wrapper on your pod which is a way to deploy your applications in K8s in real time . So in production env you will not deploy pods, but you will deploy your deployments, stateful sets or daemon sets
+
+--> Also if you want to debug your application , you can use below command
+
+kubectl logs (name of the pod)
+
+This command will help you to see name of the application. Lets say you want to see logs for nginx pod we created , we use command
+
+kubectl logs nginx
+
+--> Also if you want to get all the information about the pod, you can use command
+
+kubectl describe pod
+
+For example of nginx pod we deployed , we can use
+
+kubectl describe pod nginx
+
+
+
+
+
 
 
 
