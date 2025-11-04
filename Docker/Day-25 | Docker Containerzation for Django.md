@@ -47,7 +47,7 @@ FROM ubuntu
 --> Then we selected work directory. It is basically an identification on where your source code is going to save or you have multiple projects in your organization or you have multiple people in your team, and whenever you are writing this docker file , you can create as a standard saying we will always put the source code whenever we are containerizing the application in the folder called "/app" . So this is kind of a standard that you follow. Hence we use below command
 
 ```
-WORKDIR
+WORKDIR /app
 ```
 
 
