@@ -62,12 +62,76 @@ So basically using docker --mount you allow users to understand what you are run
 
 
 
+-->In practical lab, it was discussed that if you want to get details about the volume like when it was created , if it is created locally, mountpoint , name and scope of the volume , you can use below command
 
+==================================
 
+docker volume inspect <volume name>
+    
+==================================
+    
+- This command also helps to identify volume properties and determine if you want to delete volume or not
 
+- To delete volume , you can use the command
+    
+    docker volume rm [volume name]
+    
 
+--> In the practical it was also discussed that if you want to mount volume to docker image, you can use below command . In below command we will run docker image to create container as well as attach volume to it. We will use mount command for mounting volume because mount is verbose
+    
+In this example, we will run container in detached mode
+    
+docker run -d --mount source=abhishek,target=/app dockervolume
+    
+    
+Where source is the name of volume which in our example is "abhishek" , target is the folder where this container will be saved and executed and followed by the image name which in this case we created docker image named as 'dockervolume'
+    
+- So above command not only runs container but also attaches volume named abhishek to the created container 
+    
+    
+Now if you inspect the created container using command
 
+docker inspect <container name> 
 
+You will get all the details of the container including the volume attached to the container.
+    
+    
+- Now once the volume is attached to the container and if you want to delete the volume , you cannot directly delete the volume. You have to first stop the container , then delete the container and once container is deleted , after that you can delete the volume.
+    
+    
+--> So what we achieved in this class is even if the docker goes down, the persistent volume created holds the data and can be attached to another container which can continue accessing data.
+    
+
+More details about volume can be found below
+https://docs.docker.com/engine/storage/volumes/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
